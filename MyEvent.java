@@ -13,10 +13,10 @@ interface MyEventListener extends EventListener {
 }
 
 public class MyEvent{
-    private MyEventListener evntlis;
+    private MyEventListener eventlistener;
     public void SeteventListener(MyEventListener e)
     {
-        evntlis=e;
+        eventlistener=e;
     }
     public void start() throws InterruptedException {
         Random r=new Random();
@@ -26,7 +26,7 @@ public class MyEvent{
             int ClientID=r.nextInt(100);
             int UUID=r.nextInt(100);
             String Message="hello_"+i+"_"+ClientID+"_"+UUID;
-            evntlis.myEventOccurred(ClientID,UUID,Message);
+            eventlistener.myEventOccurred(ClientID,UUID,Message);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

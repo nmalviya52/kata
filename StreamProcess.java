@@ -4,21 +4,21 @@ import java.util.*;
 /**
  * Created by naresh.m on 16/05/17.
  */
-public class Streamprocess implements MyEventListener {
-    public static double[] a=new double[100];
-    public static Object[] b=new Object[100];
+public class StreamProcess implements MyEventListener {
+    public static double[] lastrequesttime=new double[100];
+    public static Object[] mutex=new Object[100];
     static{
         for(int i=0;i<100;i++)
-            a[i]=-10.0;
+            lastrequesttime[i]=-10.0;
         for(int i=0;i<100;i++)
-            b[i]=new Object();
+            mutex[i]=new Object();
     }
     public void myEventOccurred(int ClientID,int UUID,String Message) {
-        long l = System.currentTimeMillis();
-        double d = l / 1000;
-        if (d - a[UUID] >=10.000000) {
-            a[UUID] = d;
-            Thread t1 = new Thread(new mythread("hello", Message,b[ClientID]), Message);
+        long curtime = System.currentTimeMillis();
+        double curtimesec = curtime / 1000;
+        if (curtimesec - lastrequesttime[UUID] >=10.000000) {
+            lastrequesttime[UUID] = curtimesec;
+            Thread t1 = new Thread(new mythread("hello", Message,mutex[ClientID]), Message);
             try {
                 t1.join();
             } catch (InterruptedException e) {
@@ -27,10 +27,10 @@ public class Streamprocess implements MyEventListener {
         }
     }
     public void begin() throws InterruptedException {
-        MyEvent a=new MyEvent();
-        a.SeteventListener(this);
+        MyEvent anew=new MyEvent();
+        anew.SeteventListener(this);
         try {
-            a.start();
+            anew.start();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
