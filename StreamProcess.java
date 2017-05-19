@@ -49,18 +49,9 @@ class mythread implements Runnable{
     }
     @Override
     public void run() {
-        System.out.println(""+message+" waiting");
         synchronized (client)
         {
-            System.out.println(""+message+" executing");
-            Random r=new Random();
-            try {
-                int val=r.nextInt(5);
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(""+message+"terminated ");
+            System.out.println(message);
         }
     }
 }
