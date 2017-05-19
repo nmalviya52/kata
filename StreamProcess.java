@@ -17,6 +17,7 @@ public class StreamProcess implements MyEventListener {
     public void myEventOccurred(int ClientID,int UUID,String Message) {
         long curtime = System.currentTimeMillis();
         double curtimesec = curtime / 1000;
+        // has request arrived after 10 seconds for same UUID ?
         if (curtimesec - lastrequesttime[UUID] >=10.000000) {
             lastrequesttime[UUID] = curtimesec;
             Thread t1 = new Thread(new mythread("hello", Message,mutex[ClientID]), Message);
@@ -41,7 +42,7 @@ public class StreamProcess implements MyEventListener {
 class mythread implements Runnable{
     Thread runner;
     String message;
-    Object client;
+    Object client;  // reference to corresponding client object
     public mythread(String threadName,String msg,Object o) {
         runner = new Thread(this, threadName);
         this.message=msg;
@@ -50,6 +51,7 @@ class mythread implements Runnable{
     }
     @Override
     public void run() {
+        // synchronization for same client
         synchronized (client)
         {
             System.out.println(message);
