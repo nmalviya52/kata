@@ -5,9 +5,10 @@ import java.util.*;
  * Created by naresh.m on 16/05/17.
  */
 public class StreamProcess implements MyEventListener {
-    public static double[] lastrequesttime=new double[100];
-    public static Object[] mutex=new Object[100];
-    static{
+
+    public  double[] lastrequesttime=new double[100];
+    public  Object[] mutex=new Object[100];
+    StreamProcess(){
         for(int i=0;i<100;i++)
             lastrequesttime[i]=-10.0;
         for(int i=0;i<100;i++)
